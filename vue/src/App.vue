@@ -1,6 +1,6 @@
 <template>
 	<section :class="modeType ? '' : 'dark'">
-		<div class="bg-gray-100 dark:bg-gray-800 dark:text-white"><Index msg="个人简历" /></div>
+		<div class="bg-gray-100 text-gray-800 dark:text-gray-200 dark:bg-gray-800 dark:text-white"><Index msg="个人简历" /></div>
 		<div class="mode-btn rounded-full absolute top-4 right-4"
 		@click="modeSwitch">
 			<p class="border-2 w-10 h-5 border-gray-300 bg-gray-200 rounded-full"></p>
