@@ -2,9 +2,16 @@
   <section class="soccer_bg pt-4 min-h-full md:pt-20">
       <div class="w-11/12 md:max-w-7xl mx-auto flex flex-col md:flex-row md:space-x-4">
         <div class="w-full md:w-5/12 border-red-300">
-          <div class="w-full"><img class="w-5/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
-          <div class="w-full"><img class="w-full" src="../assets/img/jackpot-soccer/Prize1.png"/></div>
-          <div class="w-full flex justify-end"><img class="w-5/12" src="../assets/img/jackpot-soccer/Prize2.png"/></div>
+          <div class="w-full flex justify-center"><img class="w-7/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
+          <div class="w-full jiangchi1 p-10 flex flex-col justify-center items-center">
+            <img class="w-7/12" src="../assets/img/jackpot-soccer/jiang-1.png"/>
+            <p class="text-3xl text-white text-center font-bold">THẮNG ÍT NHẤT $2TỶ<br/> 888.000</p>
+          </div>
+          <div class="w-full flex justify-end mt-4">
+            <p class="jiangchi2 p-4 text-center text-white">
+              <span class=" text-yellow-400">hơn $35 TỶ 678.000</span><br/>
+              ĐÃ SẴN SÀNG PHÁT THƯỞNG<br/>TRONG MÙA NÀY</p>
+          </div>
         </div>
         <div class="w-full md:w-7/12 soccer border-4 border-solid border-white p-8 rounded-lg relative">
           <svg class=" absolute top-1 left-1 w-6 cursor-pointer text-white"
@@ -38,7 +45,7 @@
             <div class="flex justify-center items-center flex-col space-y-6 h-full">
               <div class="text-white">{{ soccerList.list[itemNum].esd.substring(0, 10)}}</div>
               <div class="w-11/12 text-center py-2 text-white border-2 border-bolid border-white">
-                {{ soccerList.list[itemNum].t1}} <span class="px-2">VS</span> {{ soccerList.list[itemNum].t2}}
+                {{ soccerList.list[itemNum].t1}} <b class="px-2">VS</b> {{ soccerList.list[itemNum].t2}}
               </div>
               <button class="w-11/12 py-2 px-4 text-center bg-white flex justify-between rounded-full focus:outline-none"
               @click="selectFun(soccerList.list[itemNum].tr1id)"
@@ -62,21 +69,59 @@
           <!-- 结果组 -->
           <div class=""
           v-show="upshot">
-            <input type="text"/>
+            <div class="text-center text-white font-bold leading-10 py-4">
+              KẾT QUẢ TUẦN NÀY
+              <!-- <ul class="grid grid-cols-4 col-span-5 text-center">
+              <li class="col-span-2">TRANG CHỦ<br/>THẮNG</li>
+              <li>HÒA</li>
+              <li>THUA</li>
+            </ul> -->
+            </div>
+            <div class="divide-white divide-y-2 text-white border-t-2 border-b-2 border-solid border-white">
+              <ul class="grid grid-cols-6 h-10 leading-10"
+              v-for="item in 10" :key="item">
+                <li class="col-span-4 grid grid-cols-3 ">
+                  <p class="col-span-1">25-02 02:00</p>
+                  <p class="text-center col-span-2">A <b>VS</b> B</p>
+                </li>
+                <li class="col-span-2 text-right flex justify-end"
+                :class="item % 2 !== 0? 'text-red-600':'text-green-600'">
+                  <svg class="w-6" v-if="item % 2 === 0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <svg class="w-6" v-if="item % 2 !== 0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  B THẮNG
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      <ul class="w-11/12 md:max-w-7xl mx-auto flex justify-center m-10 space-x-20">
-        <li class="w-3/12 bg-gray-900 bg-opacity-60">1</li>
-        <li class="w-3/12 bg-gray-900 bg-opacity-60">1</li>
-        <li class="w-3/12 bg-gray-900 bg-opacity-60">1</li>
+      <ul class="w-11/12 md:max-w-7xl mx-auto flex justify-center m-10 space-x-20 text-white">
+        <li class="w-3/12 bg-gray-900 bg-opacity-60 flex items-center relative py-2 rounded">
+          <p class="w-8 absolute h-8 text-center leading-8 rounded-full top-2 left-16 bg-blue-600 text-xl">1</p>
+          <img class="w-20" src="../assets/img/jackpot-soccer/icon-1.png"/>
+          <p class="text-center px-4">VÉ THẮNG ĐỂ MỞ HỘP QUÀ</p>
+        </li>
+        <li class="w-3/12 bg-gray-900 bg-opacity-60 flex items-center relative py-2 rounded">
+          <p class="w-8 absolute h-8 text-center leading-8 rounded-full top-2 left-16 bg-blue-600 text-xl">2</p>
+          <img class="w-20" src="../assets/img/jackpot-soccer/icon-2.png"/>
+          <p class="text-center px-4">VÉ THẮNG ĐỂ MỞ HỘP QUÀ</p>
+        </li>
+        <li class="w-3/12 bg-gray-900 bg-opacity-60 flex items-center relative py-2 rounded">
+          <p class="w-8 absolute h-8 text-center leading-8 rounded-full top-2 left-16 bg-blue-600 text-xl">3</p>
+          <img class="w-20" src="../assets/img/jackpot-soccer/icon-3.png"/>
+          <p class="text-center px-4">VÉ THẮNG ĐỂ MỞ HỘP QUÀ</p>
+        </li>
       </ul>
   </section>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent, reactive, onMounted } from 'vue'
-import { hello } from '../api/model/index'
+import { hello, bonus } from '../api/model/index'
 export default defineComponent({
   name: 'HelloWorld',
   setup: () => {
@@ -84,10 +129,13 @@ export default defineComponent({
     let soccerList = reactive({
       list: [],
     })
+    let bonusList = reactive({
+      list: [],
+    })
 
     const btn = ref(false);
-    const games  = ref(true);
-    const upshot  = ref(false);
+    const games  = ref(false);
+    const upshot  = ref(true);
     const selectBtn  = ref(0);
 
     const guessFun = () => {
@@ -105,6 +153,12 @@ export default defineComponent({
       games.value = false
       upshot.value = false
     }
+    const bonusFun = () => {
+      bonus('TMM7J2').then((response: { data: any }) => {
+        bonusList.list = response.data
+        console.log(bonusList.list);
+      });
+    }
     
     const getList = () => {
       
@@ -115,7 +169,7 @@ export default defineComponent({
       }
       hello(data).then((response: { data: any }) => {
         soccerList.list = response.data.data
-        console.log(soccerList.list[0]);
+        // console.log(soccerList.list[0]);
       });
     }
     const selectFun = (e:number) => {
@@ -126,6 +180,7 @@ export default defineComponent({
     
     onMounted(() => {
       getList()
+      bonusFun()
     })
 
     return {
@@ -139,7 +194,8 @@ export default defineComponent({
       soccerList,
       itemNum,
       selectFun,
-      selectBtn
+      selectBtn,
+      bonusList
      };
   }
 })
@@ -152,5 +208,13 @@ export default defineComponent({
 }
 .soccer{
   background: #114783;
+}
+.jiangchi1{
+  background: url(../assets/img/jackpot-soccer/Prize1.png) top center no-repeat;
+  background-size: 100% 100%;
+}
+.jiangchi2{
+  background: url(../assets/img/jackpot-soccer/Prize2.png) top center no-repeat;
+  background-size: 100% 100%;
 }
 </style>
