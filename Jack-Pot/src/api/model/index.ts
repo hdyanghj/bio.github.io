@@ -20,3 +20,10 @@ export function leagueList(number: any){
         url: `api/sport/leagueList?number=${number}`
     })
 }
+
+export function resultFun(number: any){
+    return api({
+        method: "GET",
+        url: `api/sport/leagueList?number=${number}`
+    })
+}
