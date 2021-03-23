@@ -29,7 +29,8 @@
             type="text" v-model="verifyCode"/>
             <div class="flex justify-center items-center text-white space-x-4">
               <button class="bg-gradient-to-b from-red-400 bg-red-800 hover:from-red-500 hover:bg-red-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-              @click="guessFun(1)">
+              @click="guessFun(1)"
+              maxlength="6">
                 立即竞猜
               </button>
               <button class="bg-gradient-to-b from-yellow-400 bg-yellow-800 hover:from-yellow-500 hover:bg-yellow-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
@@ -116,6 +117,23 @@
           <p class="text-center px-4">VÉ THẮNG ĐỂ MỞ HỘP QUÀ</p>
         </li>
       </ul>
+      <div class="w-full text-white bg-red-500 fixed top-0">
+        <div class="container flex items-center justify-between px-6 py-4 mx-auto">
+            <div class="flex">
+                <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current">
+                    <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
+                </svg>
+
+                <p class="mx-3">Validation Error.</p>
+            </div>
+
+            <button class="p-1 transition-colors duration-200 transform rounded-md hover:bg-opacity-25 hover:bg-gray-600 focus:outline-none">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </div>
   </section>
 </template>
 
@@ -133,6 +151,7 @@ export default defineComponent({
     let bonusList = reactive({
       list: [],
     })
+    let matches = reactive([])
 
     const btn = ref(false);
     const games  = ref(false);
@@ -145,13 +164,30 @@ export default defineComponent({
         return
       }
       console.log(e)
-      if(e === 1){
-        console.log(verifyCode.value)
-        getList(verifyCode.value)
-        // 开始竞猜
-      }else{
-        // 竞猜结果
-      }
+      matchList(verifyCode.value).then((response: { data: any }) => {
+        let bets = response.data.data.bets
+        if(e === 1){
+          // 开始竞猜
+          if(bets.match){
+            console.log(bets)
+            console.log(bets.match)
+            soccerList.list = bets.match
+
+          }else{
+            console.log('本周末没有比赛')
+          }
+        }else{
+          // 竞猜结果
+          console.log(response.data.data.matches)
+          if(response.data.data.matches.length > 0){
+            matches = response.data.data.matches
+          }else{
+            console.log('没有竞猜记录')
+          }  
+        }
+        // soccerList.list = response.data.data
+        // console.log(soccerList.list[0]);
+      });
       console.log(btn.value)
       btn.value = false
       games.value = true
@@ -161,13 +197,14 @@ export default defineComponent({
       games.value = false
       upshot.value = false
     }
+    // 获取奖金池
     const bonusFun = () => {
       bonus().then((response: { data: any }) => {
         bonusList.list = response.data.data
         console.log(bonusList.list);
       });
     }
-    
+    // 测试获取数据
     const getList = (e: string|undefined) => {
       let numbers = e 
       console.log(numbers)
