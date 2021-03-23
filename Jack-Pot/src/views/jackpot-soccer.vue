@@ -5,11 +5,11 @@
           <div class="w-full flex justify-center"><img class="w-7/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
           <div class="w-full jiangchi1 p-10 flex flex-col justify-center items-center">
             <img class="w-7/12" src="../assets/img/jackpot-soccer/jiang-1.png"/>
-            <p class="text-3xl text-white text-center font-bold">THẮNG ÍT NHẤT $2TỶ<br/> 888.000</p>
+            <p class="text-3xl text-white text-center font-bold">THẮNG ÍT NHẤT<br/>{{bonusList.list.value1}}</p>
           </div>
           <div class="w-full flex justify-end mt-4">
             <p class="jiangchi2 p-4 text-center text-white">
-              <span class=" text-yellow-400">hơn $35 TỶ 678.000</span><br/>
+              <span class=" text-yellow-400">hơn {{bonusList.list.value1}}</span><br/>
               ĐÃ SẴN SÀNG PHÁT THƯỞNG<br/>TRONG MÙA NÀY</p>
           </div>
         </div>
@@ -121,7 +121,7 @@
 
 <script lang="ts">
 import { ref, defineComponent, reactive, onMounted } from 'vue'
-import { hello, bonus } from '../api/model/index'
+import { leagueList, bonus, matchList } from '../api/model/index'
 export default defineComponent({
   name: 'HelloWorld',
   setup: () => {
@@ -154,8 +154,8 @@ export default defineComponent({
       upshot.value = false
     }
     const bonusFun = () => {
-      bonus('TMM7J2').then((response: { data: any }) => {
-        bonusList.list = response.data
+      bonus().then((response: { data: any }) => {
+        bonusList.list = response.data.data
         console.log(bonusList.list);
       });
     }
@@ -163,12 +163,10 @@ export default defineComponent({
     const getList = () => {
       
       // .get("http://112.213.118.251:8080/api/sport/matchList?weak=2021-03-16&leagueid=842")
-      let data = {
-        weak: '2021-03-16',
-        leagueid: '842'
-      }
-      hello(data).then((response: { data: any }) => {
-        soccerList.list = response.data.data
+      let numbers = 'RC0O7E' // 'Y3QGUW'
+      matchList(numbers).then((response: { data: any }) => {
+        // soccerList.list = response.data.data
+        console.log(response)
         // console.log(soccerList.list[0]);
       });
     }

@@ -1,15 +1,22 @@
 import api from "..";
 
-export function hello(data: any){
+export function matchList(number: any){
     return api({
         method: "GET",
-        url: `api/sport/matchList?weak=${data.weak}&leagueid=${data.leagueid}`
+        url: `api/sport/queryMatch?number=${number}`
     })
 }
 
-export function bonus(data: string){
+export function bonus(){
     return api({
         method: "GET",
-        url: `api/sport/queryMatch?number=${data}`
+        url: `api/sport/bonus`
+    })
+}
+
+export function leagueList(number: any){
+    return api({
+        method: "GET",
+        url: `api/sport/leagueList?number=${number}`
     })
 }
