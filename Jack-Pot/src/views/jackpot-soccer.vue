@@ -65,7 +65,7 @@
               :class="selectBtn == 3 ? 'bg-green-300' : ''">HÒA</button>
             </div>
             <button class=" absolute top-3 right-3 py-1 px-4 text-center bg-gradient-to-b text-white from-yellow-400 bg-yellow-600 rounded-full focus:outline-none"
-              @click="selectFun()">xác nhận</button>
+              @click="subFun(soccerList.list[itemNum])">xác nhận</button>
           </div>
           <!-- 结果组 -->
           <div class=""
@@ -117,17 +117,19 @@
           <p class="text-center px-4">VÉ THẮNG ĐỂ MỞ HỘP QUÀ</p>
         </li>
       </ul>
-      <div class="w-full text-white bg-red-500 fixed top-0">
+      <div class="w-full text-white bg-red-500 fixed top-0 transform transition"
+      :class="warningBox? 'translate-y-0':'-translate-y-full'">
         <div class="container flex items-center justify-between px-6 py-4 mx-auto">
             <div class="flex">
                 <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current">
                     <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
                 </svg>
 
-                <p class="mx-3">Validation Error.</p>
+                <p class="mx-3">{{warningMsg}}</p>
             </div>
 
-            <button class="p-1 transition-colors duration-200 transform rounded-md hover:bg-opacity-25 hover:bg-gray-600 focus:outline-none">
+            <button class="p-1 transition-colors duration-200 transform rounded-md hover:bg-opacity-25 hover:bg-gray-600 focus:outline-none"
+            @click="hideWarning">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -139,11 +141,16 @@
 
 <script lang="ts">
 import { ref, defineComponent, reactive, onMounted } from 'vue'
-import { leagueList, bonus, matchList } from '../api/model/index'
+import { getMatchList, bonus, matchList, betsSubmit } from '../api/model/index'
 export default defineComponent({
   name: 'HelloWorld',
   setup: () => {
+    // 警告框
+    let warningBox = ref(false)
+    let warningMsg = ref('')
+    // 验证码
     let verifyCode = ref('')
+    // 当前题号
     let itemNum = ref(0);
     let soccerList = reactive({
       list: [],
@@ -152,19 +159,40 @@ export default defineComponent({
       list: [],
     })
     let matches = reactive([])
+    let timer = reactive([])
 
     const btn = ref(false);
     const games  = ref(false);
     const upshot  = ref(true);
     const selectBtn  = ref(0);
-
+    // 隐藏警告
+    const hideWarning = (msg: string) =>{
+      warningBox.value = false
+    }
+    // 弹出警告
+    const popWarning = (msg: string) =>{
+      warningBox.value = true
+      setTimeout(()=>{
+        warningBox.value = false
+      },2000)
+      warningMsg.value = msg
+    }
+    // 开始
     const guessFun = (e: number) => {
       if(!verifyCode.value){
         console.log('请输入验证码')
+        popWarning('请输入验证码')
         return
       }
       console.log(e)
       matchList(verifyCode.value).then((response: { data: any }) => {
+        console.log(response.data.code)
+        if(response.data.code === 500){
+          popWarning('没有对应赛事')
+          return
+        }
+        // soccerList.list = 
+        return
         let bets = response.data.data.bets
         if(e === 1){
           // 开始竞猜
@@ -174,6 +202,7 @@ export default defineComponent({
             soccerList.list = bets.match
 
           }else{
+            popWarning('本周末没有比赛')
             console.log('本周末没有比赛')
           }
         }else{
@@ -182,6 +211,7 @@ export default defineComponent({
           if(response.data.data.matches.length > 0){
             matches = response.data.data.matches
           }else{
+            popWarning('没有竞猜记录')
             console.log('没有竞猜记录')
           }  
         }
@@ -192,11 +222,13 @@ export default defineComponent({
       btn.value = false
       games.value = true
     }
+    // 返回按钮
     const comeBack = () => {
       btn.value = true
       games.value = false
       upshot.value = false
     }
+
     // 获取奖金池
     const bonusFun = () => {
       bonus().then((response: { data: any }) => {
@@ -205,24 +237,39 @@ export default defineComponent({
       });
     }
     // 测试获取数据
-    const getList = (e: string|undefined) => {
-      let numbers = e 
-      console.log(numbers)
-      return
-      matchList(numbers).then((response: { data: any }) => {
-        // soccerList.list = response.data.data
-        console.log(response)
-        // console.log(soccerList.list[0]);
+    const getList = () => {
+      getMatchList().then((response: { data: any }) => {
+        soccerList.list = response.data.data
+        // console.log(response.data.data)
+        console.log(soccerList.list[0]);
       });
     }
-    const selectFun = (e:number) => {
+    const selectFun = (e:number,b: any) => {
       console.log(e)
       selectBtn.value = e
+      let types = ''
+      if(e === 3) types = '3'
       
+      
+    }
+    
+    const subFun = (e: any) => {
+      let data = {
+        matchId: e.eid,
+        number: verifyCode,
+        teamid: e,
+        type: types,
+        leagueId: e.leagueid
+      }
+      betsSubmit(data).then((response: { data: any }) => {
+        response.data.data
+        console.log(response.data.data);
+      });
     }
     
     onMounted(() => {
       bonusFun()
+      getList()
     })
 
     return {
@@ -231,13 +278,18 @@ export default defineComponent({
       games,
       upshot,
       guessFun,
-      comeBack,
+        comeBack,
       getList,
       soccerList,
       itemNum,
       selectFun,
       selectBtn,
-      bonusList
+      subFun,
+      bonusList,
+      matches,
+      warningBox,
+      warningMsg,
+      hideWarning
      };
   }
 })
