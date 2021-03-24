@@ -117,37 +117,29 @@
           <p class="text-center px-4">VÉ THẮNG ĐỂ MỞ HỘP QUÀ</p>
         </li>
       </ul>
-      <div class="w-full text-white bg-red-500 fixed top-0 transform transition"
-      :class="warningBox? 'translate-y-0':'-translate-y-full'">
-        <div class="container flex items-center justify-between px-6 py-4 mx-auto">
-            <div class="flex">
-                <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current">
-                    <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
-                </svg>
-
-                <p class="mx-3">{{warningMsg}}</p>
-            </div>
-
-            <button class="p-1 transition-colors duration-200 transform rounded-md hover:bg-opacity-25 hover:bg-gray-600 focus:outline-none"
-            @click="hideWarning">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-        </div>
-    </div>
+      
+    <PromptBox :warningMsg="warningMsg" 
+    :class="warningBox ? 'translate-y-0' : '-translate-y-full'"
+    @hideWarning="hideWarning"/>
   </section>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive, onMounted } from 'vue'
+import { ref, defineComponent, reactive, toRefs, onMounted } from 'vue'
 import { getMatchList, bonus, matchList, betsSubmit } from '../api/model/index'
+import PromptBox from '../components/PromptBox.vue'
 export default defineComponent({
   name: 'HelloWorld',
+  components:{
+    PromptBox
+  },
   setup: () => {
     // 警告框
     let warningBox = ref(false)
-    let warningMsg = ref('')
+    let warningMsg = reactive({
+      text: '',
+      type: ''
+    })
     // 验证码
     let verifyCode = ref('')
     // 当前题号
@@ -166,29 +158,31 @@ export default defineComponent({
     const upshot  = ref(true);
     const selectBtn  = ref(0);
     // 隐藏警告
-    const hideWarning = (msg: string) =>{
+    const hideWarning = () =>{
       warningBox.value = false
     }
     // 弹出警告
-    const popWarning = (msg: string) =>{
+    const popWarning = (msg: string, type: string) =>{
+      warningMsg.text = msg
+      warningMsg.type = type
+      console.log(warningMsg)
       warningBox.value = true
       setTimeout(()=>{
         warningBox.value = false
       },2000)
-      warningMsg.value = msg
     }
     // 开始
     const guessFun = (e: number) => {
       if(!verifyCode.value){
         console.log('请输入验证码')
-        popWarning('请输入验证码')
+        popWarning('请输入验证码', 'Error')
         return
       }
       console.log(e)
       matchList(verifyCode.value).then((response: { data: any }) => {
         console.log(response.data.code)
         if(response.data.code === 500){
-          popWarning('没有对应赛事')
+          popWarning('没有对应赛事', 'Warning')
           return
         }
         // soccerList.list = 
@@ -202,7 +196,7 @@ export default defineComponent({
             soccerList.list = bets.match
 
           }else{
-            popWarning('本周末没有比赛')
+            popWarning('本周末没有比赛', 'Warning')
             console.log('本周末没有比赛')
           }
         }else{
@@ -211,7 +205,7 @@ export default defineComponent({
           if(response.data.data.matches.length > 0){
             matches = response.data.data.matches
           }else{
-            popWarning('没有竞猜记录')
+            popWarning('没有竞猜记录', 'Warning')
             console.log('没有竞猜记录')
           }  
         }
@@ -247,23 +241,35 @@ export default defineComponent({
     const selectFun = (e:number,b: any) => {
       console.log(e)
       selectBtn.value = e
-      let types = ''
-      if(e === 3) types = '3'
+      
+      
       
       
     }
     
     const subFun = (e: any) => {
+      let types = '1'
+      //  (1赢,2和)
+      console.log(e)
+      if(selectBtn.value === 3) types = '2'
       let data = {
         matchId: e.eid,
-        number: verifyCode,
-        teamid: e,
+        number: verifyCode.value,
+        teamid: selectBtn.value,
         type: types,
         leagueId: e.leagueid
       }
       betsSubmit(data).then((response: { data: any }) => {
-        response.data.data
-        console.log(response.data.data);
+        // response.data.data
+        console.log(response.data);
+        if(response.data.code === 500){
+          if(response.data.msg === '赛事已结束'){
+            popWarning('赛事已结束', 'Error')
+            comeBack()
+          }
+          
+          return
+        }
       });
     }
     
