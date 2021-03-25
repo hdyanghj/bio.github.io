@@ -180,30 +180,46 @@ export default defineComponent({
       }
       console.log(e)
       matchList(verifyCode.value).then((response: { data: any }) => {
-        console.log(response.data.code)
+        console.log(response.data)
         if(response.data.code === 500){
           popWarning('没有对应赛事', 'Warning')
           return
         }
         // soccerList.list = 
-        return
         let bets = response.data.data.bets
+        let matchesList = response.data.data.matches
         if(e === 1){
           // 开始竞猜
-          if(bets.match){
-            console.log(bets)
-            console.log(bets.match)
-            soccerList.list = bets.match
-
+          if(matchesList){
+            if(bets.match){
+              console.log('有预测')
+              for(let i=0;i<matchesList.length;i++){
+                console.log(i)
+                console.log(bets.match.length)
+                for(let b=0;b<bets.match.length;b++){
+                  console.log(b)
+                  if(matchesList[i].id === bets.match[b].id){
+                    console.log('一次')
+                  }else{
+                    console.log('没有')
+                  }
+                }
+              }
+            }else{
+              console.log('没有预测')
+              soccerList.list = matchesList
+            }
           }else{
             popWarning('本周末没有比赛', 'Warning')
             console.log('本周末没有比赛')
           }
         }else{
           // 竞猜结果
-          console.log(response.data.data.matches)
-          if(response.data.data.matches.length > 0){
-            matches = response.data.data.matches
+            console.log(bets)
+            console.log(bets.match)
+            soccerList.list = bets.match
+          if(bets.match){
+            
           }else{
             popWarning('没有竞猜记录', 'Warning')
             console.log('没有竞猜记录')
@@ -231,13 +247,13 @@ export default defineComponent({
       });
     }
     // 测试获取数据
-    const getList = () => {
-      getMatchList().then((response: { data: any }) => {
-        soccerList.list = response.data.data
-        // console.log(response.data.data)
-        console.log(soccerList.list[0]);
-      });
-    }
+    // const getList = () => {
+    //   getMatchList().then((response: { data: any }) => {
+    //     soccerList.list = response.data.data
+    //     // console.log(response.data.data)
+    //     console.log(soccerList.list[0]);
+    //   });
+    // }
     const selectFun = (e:number,b: any) => {
       console.log(e)
       selectBtn.value = e
@@ -262,6 +278,14 @@ export default defineComponent({
       betsSubmit(data).then((response: { data: any }) => {
         // response.data.data
         console.log(response.data);
+        if(response.data.code === 200){
+          if(response.data.msg === '投注成功'){
+            popWarning('Success', 'Success')
+            itemNum.value ++
+          }
+          
+          return
+        }
         if(response.data.code === 500){
           if(response.data.msg === '赛事已结束'){
             popWarning('赛事已结束', 'Error')
@@ -275,7 +299,7 @@ export default defineComponent({
     
     onMounted(() => {
       bonusFun()
-      getList()
+      // getList()
     })
 
     return {
@@ -284,8 +308,8 @@ export default defineComponent({
       games,
       upshot,
       guessFun,
-        comeBack,
-      getList,
+      comeBack,
+      // getList,
       soccerList,
       itemNum,
       selectFun,
