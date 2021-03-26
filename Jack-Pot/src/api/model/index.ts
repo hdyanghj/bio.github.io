@@ -21,10 +21,10 @@ export function getMatchList(){
     })
 }
 
-export function betsSubmit(data: { matchId: any; number: any; teamid: any; type: any; leagueId: any; }){
+export function betsSubmit(data: { matchId: any; number: any; type: any; }){
     return api({
         method: "GET",
-        url: `api/sport/bets?matchId=${data.matchId}&number=${data.number}&teamid=${data.teamid}&type=${data.type}&leagueId=${data.leagueId}`
+        url: `api/sport/bets?matchId=${data.matchId}&number=${data.number}&type=${data.type}`
     })
 }
 

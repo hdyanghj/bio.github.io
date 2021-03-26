@@ -191,20 +191,24 @@ export default defineComponent({
         if(e === 1){
           // 开始竞猜
           if(matchesList){
-            if(bets.match){
+            if(bets){
               console.log('有预测')
+              let matchesItem = []
               for(let i=0;i<matchesList.length;i++){
                 console.log(i)
-                console.log(bets.match.length)
-                for(let b=0;b<bets.match.length;b++){
+                console.log(bets.length)
+                for(let b=0;b<bets.length;b++){
                   console.log(b)
-                  if(matchesList[i].id === bets.match[b].id){
+                  if(matchesList[i].id === bets[b].match.id){
                     console.log('一次')
                   }else{
                     console.log('没有')
+                    matchesItem.push(matchesList[i])
                   }
                 }
               }
+              console.log(matchesItem)
+              soccerList.list = matchesItem
             }else{
               console.log('没有预测')
               soccerList.list = matchesList
@@ -264,16 +268,14 @@ export default defineComponent({
     }
     
     const subFun = (e: any) => {
-      let types = '1'
+      let types = 'A'
       //  (1赢,2和)
       console.log(e)
-      if(selectBtn.value === 3) types = '2'
+      if(selectBtn.value === 3) types = 'C'
       let data = {
         matchId: e.eid,
         number: verifyCode.value,
-        teamid: selectBtn.value,
-        type: types,
-        leagueId: e.leagueid
+        type: types
       }
       betsSubmit(data).then((response: { data: any }) => {
         // response.data.data
