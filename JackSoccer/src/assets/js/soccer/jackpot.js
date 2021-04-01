@@ -14,7 +14,7 @@ export default ( function (){
     warningBox.value = false
     }
     // 弹出警告
-    const popWarning = (msg: string, type: string) =>{
+    const popWarning = (msg, type) =>{
     warningMsg.text = msg
     warningMsg.type = type
     console.log(warningMsg)
@@ -47,7 +47,7 @@ export default ( function (){
 
     
     const bonusFun = () => {
-      bonus().then((response: { data: any }) => {
+      bonus().then((response) => {
         bonusList.list = response.data.data
         console.log(bonusList.list);
       });
@@ -73,12 +73,13 @@ export default ( function (){
     const games  = ref(false);
     const upshot  = ref(false);
     const selectBtn  = ref(0);
+    const selectNum  = ref('');
     // 输
     const lose = ref(false)
     const win = ref(false)
     
     // 开始
-    const guessFun = async (e: number) => {
+    const guessFun = async (e) => {
       if(!verifyCode.value){
         popWarning('Vui lòng nhập đúng mã xác minh', 'Error')
         return
@@ -86,12 +87,12 @@ export default ( function (){
       console.log(e)
       let params = {number:verifyCode.value}
       get('api/sport/queryMatch', params).then((res) => {
-        // console.log(res.code)
-        // if(res.code === 500){
-        //   popWarning('Không có trận đấu', 'Warning')
-        //   console.log('没有对应比赛')
-        //   return
-        // }
+        console.log(res.code)
+        if(res.code === 500){
+          popWarning('Không có trận đấu nào', 'Warning')
+          // console.log('没有对应比赛')
+          return
+        }
         soccerList.list = []
         let bets = res.data.bets
         let matchesList = res.data.matches
@@ -115,21 +116,21 @@ export default ( function (){
                 }
               }
               if(matchesList.length < 1 ){
-                popWarning('已全部竞猜', 'Success')
+                popWarning('Tất cả các trận đấu đã được đoán', 'Success')
               }else{
                 btn.value = false
                 games.value = true
               }
               console.log(matchesList)
-              soccerList.list = matchesList as never
+              soccerList.list = matchesList
               console.log(soccerList.list)
             }else{
-              console.log('没有预测')
+              // console.log('没有预测')
               soccerList.list = matchesList
             }
           }else{
             popWarning('Tuần này không có trận đấu nào', 'Warning')
-            console.log('本周末没有比赛')
+            // console.log('本周末没有比赛')
           }
         }else{
           // 竞猜结果
@@ -163,7 +164,7 @@ export default ( function (){
             upshot.value = true
           }else{
             popWarning('Bạn chưa có lịch sử dự đoán nào', 'Warning')
-            console.log('没有竞猜记录')
+            // console.log('没有竞猜记录')
           }  
         }
       })
@@ -171,23 +172,22 @@ export default ( function (){
     // 获取比赛 ******************************** END
 
     // 开始竞猜 ******************************** Start 
-    const selectFun = (e:number,b: any) => {
+    const selectFun = (e,b) => {
       console.log(e)
       selectBtn.value = e
+      selectNum.value = b
       
     }
     
-    const subFun = (e: any) => {
-      let types = 'A'
+    const subFun = (e) => {
       //  (1赢,2和)
       console.log(e)
-      if(selectBtn.value === 3) types = 'C'
       let data = {
         matchId: e.eid,
         number: verifyCode.value,
-        type: types
+        type: selectNum.value
       }
-      betsSubmit(data).then((response: { data: any }) => {
+      betsSubmit(data).then((response) => {
         // response.data.data
         console.log(response.data);
         if(response.data.code === 200){
@@ -195,10 +195,10 @@ export default ( function (){
             console.log(itemNum.value)
             if (itemNum.value == soccerList.list.length-1) {
               comeBack()
-              popWarning('已全部竞猜', 'Success')
+              popWarning('Tất cả các trận đấu đã được đoán', 'Success')
             }else{
               itemNum.value++
-              console.log('下一题'+itemNum.value)
+              // console.log('下一题'+itemNum.value)
               popWarning('Success', 'Success')
             }
           }
@@ -207,11 +207,11 @@ export default ( function (){
         }
         if(response.data.code === 500){
           if(response.data.msg === '赛事已结束'){
-            popWarning('Trận đấu kết thúc ', 'Error')
+            popWarning('Trận đấu đã kết thúc', 'Error')
             comeBack()
           }
           if(response.data.msg === '该比赛已投注'){
-            popWarning('Trò chơi đã được dự đoán', 'Error')
+            popWarning('Trận đấu đã được dự đoán', 'Error')
             comeBack()
           }
           
