@@ -1,5 +1,5 @@
-import { ref, reactive } from 'vue'
-import { bonus, betsSubmit } from '../../../api/model/index'
+import { ref, defineComponent, reactive, toRefs, onMounted } from 'vue'
+import { getMatchList, bonus, matchList, betsSubmit } from '../../../api/model/index'
 import { get } from '../../../api/request'
 export default ( function (){
     // 警告框******************************** Start 
@@ -17,7 +17,7 @@ export default ( function (){
     const popWarning = (msg, type) =>{
     warningMsg.text = msg
     warningMsg.type = type
-    // console.log(warningMsg)
+    console.log(warningMsg)
     warningBox.value = true
     setTimeout(()=>{
         warningBox.value = false
@@ -49,7 +49,7 @@ export default ( function (){
     const bonusFun = () => {
       bonus().then((response) => {
         bonusList.list = response.data.data
-        // console.log(bonusList.list);
+        console.log(bonusList.list);
       });
     }
     
@@ -84,10 +84,10 @@ export default ( function (){
         popWarning('Vui lòng nhập đúng mã xác minh', 'Error')
         return
       }
-      // console.log(e)
+      console.log(e)
       let params = {number:verifyCode.value}
       get('api/sport/queryMatch', params).then((res) => {
-        // console.log(res.code)
+        console.log(res.code)
         if(res.code === 500){
           popWarning('Không có trận đấu nào', 'Warning')
           // console.log('没有对应比赛')
@@ -121,9 +121,9 @@ export default ( function (){
                 btn.value = false
                 games.value = true
               }
-              // console.log(matchesList)
+              console.log(matchesList)
               soccerList.list = matchesList
-              // console.log(soccerList.list)
+              console.log(soccerList.list)
             }else{
               // console.log('没有预测')
               soccerList.list = matchesList
@@ -134,7 +134,7 @@ export default ( function (){
           }
         }else{
           // 竞猜结果
-            // console.log(bets)
+            console.log(bets)
           if(bets){
             for(let i=0;i<bets.length;i++){
                 bets[i].match.esd = bets[i].match.esd.substring(5,16)
@@ -150,10 +150,10 @@ export default ( function (){
                     type = 'C'
                   }
                   if(bets[i].type === type){
-                    bets[i].lose = true
+                    lose.value = true
                     bets[i].match.className = 'text-green-600'
                   }else{
-                    bets[i].win = true
+                    win.value = true
                     bets[i].match.className = 'text-red-600'
                   }
                 }
@@ -172,13 +172,13 @@ export default ( function (){
     // 获取比赛 ******************************** END
 
     // 跳转客服 ******************************** Start 
-    const kfFun = (e) => {
-      window.open(e,'_blank')
+    const kfFun = () => {
+      window.open('https://direct.lc.chat/12580266/','_blank')
     }
 
     // 开始竞猜 ******************************** Start 
     const selectFun = (e,b) => {
-      // console.log(e)
+      console.log(e)
       selectBtn.value = e
       selectNum.value = b
       
@@ -186,7 +186,7 @@ export default ( function (){
     
     const subFun = (e) => {
       //  (1赢,2和)
-      // console.log(e)
+      console.log(e)
       let data = {
         matchId: e.eid,
         number: verifyCode.value,
@@ -194,10 +194,10 @@ export default ( function (){
       }
       betsSubmit(data).then((response) => {
         // response.data.data
-        // console.log(response.data);
+        console.log(response.data);
         if(response.data.code === 200){
           if(response.data.msg === '投注成功'){
-            // console.log(itemNum.value)
+            console.log(itemNum.value)
             if (itemNum.value == soccerList.list.length-1) {
               comeBack()
               popWarning('Tất cả các trận đấu đã được đoán', 'Success')

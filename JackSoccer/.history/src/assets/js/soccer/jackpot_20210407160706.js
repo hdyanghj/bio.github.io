@@ -172,8 +172,8 @@ export default ( function (){
     // 获取比赛 ******************************** END
 
     // 跳转客服 ******************************** Start 
-    const kfFun = (e) => {
-      window.open(e,'_blank')
+    const kfFun = () => {
+      window.open('https://direct.lc.chat/12580266/','_blank')
     }
 
     // 开始竞猜 ******************************** Start 

@@ -46,12 +46,12 @@
               <input class="p-2 text-center border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-transparent"
               type="text" v-model="verifyCode"/>
               <div class="flex justify-center items-center text-white space-x-4">
-                <button class="bg-gradient-to-b from-green-400 bg-green-800 hover:from-green-500 hover:bg-green-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+                <button class="bg-gradient-to-b from-red-400 bg-red-800 hover:from-red-500 hover:bg-red-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
                 @click="guessFun(1)"
                 maxlength="6">
                   Dự đoán ngay
                 </button>
-                <button class="bg-gradient-to-b from-purple-400 bg-purple-800 hover:from-purple-500 hover:bg-purple-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
+                <button class="bg-gradient-to-b from-yellow-400 bg-yellow-800 hover:from-yellow-500 hover:bg-yellow-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
                 @click="guessFun(2)">
                   Xem kết quả
                 </button>

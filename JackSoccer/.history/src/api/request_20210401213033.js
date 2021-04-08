@@ -10,8 +10,8 @@ const api = axios.create({
 // 请求拦截
 api.interceptors.request.use(
     function(config) {
-        // console.log('全局请求拦截')
-        // console.log(config)
+        console.log('全局请求拦截')
+        console.log(config)
         return config
     },
     function(err) {
@@ -22,8 +22,8 @@ api.interceptors.request.use(
 // 响应拦截
 api.interceptors.response.use(
     function(response) {
-        // console.log('全局返回拦截')
-        // console.log(response.data)
+        console.log('全局返回拦截')
+        console.log(response.data)
         return response.data
         // return response
     },

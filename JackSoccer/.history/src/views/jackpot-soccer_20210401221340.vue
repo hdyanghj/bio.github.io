@@ -9,54 +9,43 @@
           </div>
           <div class="w-full flex justify-center lg:justify-end my-6">
             <p class="jiangchi2 p-4 text-center text-white">
-              <span class=" text-yellow-400">HƠN {{bonusList.list.value1}}</span><br/>
+              <span class=" text-yellow-400">hơn {{bonusList.list.value1}}</span><br/>
               ĐÃ SẴN SÀNG PHÁT THƯỞNG<br/>TRONG MÙA NÀY</p>
           </div>
         </div>
-        <div class="w-full lg:w-7/12 soccer border-4 border-solid border-white px-4 pb-8 lg:p-8 lg:pt-0 rounded-lg relative overflow-hidden">
-          <div class="absolute py-4 z-30">
-            <svg class="w-6 cursor-pointer text-white"
-            @click="comeBack"
-            v-show="!btn"
-            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+        <div class="w-full lg:w-7/12 soccer border-4 border-solid border-white px-4 py-8 lg:p-8 rounded-lg relative">
+          <svg class=" absolute top-1 left-1 w-6 cursor-pointer text-white"
+          @click="comeBack"
+          v-show="!btn"
+          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+          </svg>
+          <div class=" w-50 right-4 bg-gray-50 flex bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2 px-4">
+            <svg class="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
+            <p>Liên Hệ CSKH Trực Tuyến</p>
+
           </div>
            <!-- 按钮组 -->
       
-          <div class="h-full" v-show="btn">
-            <div class="flex flex-col justify-end items-center space-y-3 pt-6 lg:items-end ">
-              <div class=" w-56 z-30 cursor-pointer text-sm rounded bg-gray-50 flex bg-gradient-to-b from-red-500 bg-yellow-600 text-white py-2 px-4"
-              @click="kfFun('https://direct.lc.chat/12580266/')">
-                <svg class="w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                </svg>
-                <p>Liên Hệ CSKH Trực Tuyến</p>
-              </div>
-              <div class=" w-56 z-30 cursor-pointer text-sm rounded bg-gray-50 flex bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2 px-4"
-              @click="kfFun('https://zalo.me/v7tramanh')">
-                <svg class="w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                </svg>
-                <p>Hỗ Trợ Qua Zalo</p>
-              </div>
+          <div class="flex justify-center items-center flex-col h-full space-y-6"
+          v-show="btn">
+            <div class="text-white text-center lg:text-xl">Nhập mã xác minh để bắt đầu dự đoán hoặc xem kết quả</div>
+            <input class="p-2 text-center border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-transparent"
+            type="text" v-model="verifyCode"/>
+            <div class="flex justify-center items-center text-white space-x-4">
+              <button class="bg-gradient-to-b from-red-400 bg-red-800 hover:from-red-500 hover:bg-red-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+              @click="guessFun(1)"
+              maxlength="6">
+                Dự đoán ngay
+              </button>
+              <button class="bg-gradient-to-b from-yellow-400 bg-yellow-800 hover:from-yellow-500 hover:bg-yellow-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
+              @click="guessFun(2)">
+                Xem kết quả
+              </button>
             </div>
-            <div class="flex justify-center items-center flex-col pt-4 lg:pt-20 space-y-6">
-              <div class="text-white text-center lg:text-xl">Nhập mã xác minh để bắt đầu dự đoán hoặc xem kết quả</div>
-              <input class="p-2 text-center border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-transparent"
-              type="text" v-model="verifyCode"/>
-              <div class="flex justify-center items-center text-white space-x-4">
-                <button class="bg-gradient-to-b from-green-400 bg-green-800 hover:from-green-500 hover:bg-green-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
-                @click="guessFun(1)"
-                maxlength="6">
-                  Dự đoán ngay
-                </button>
-                <button class="bg-gradient-to-b from-purple-400 bg-purple-800 hover:from-purple-500 hover:bg-purple-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
-                @click="guessFun(2)">
-                  Xem kết quả
-                </button>
-              </div>
-            </div>
+            
           </div>
           <!-- 竞猜组 -->
           <div class="h-full text-sm"
@@ -68,50 +57,47 @@
                 <p><b class="px-2 text-yellow-300">VS</b></p>
                 <p>B、{{soccerList.list[itemNum].t2}}</p>
               </div>
-              <button class="w-10/12 py-2 px-4 text-center bg-white flex justify-center rounded focus:outline-none overflow-hidden"
+              <button class="w-11/12 py-2 px-4 text-center bg-white flex justify-center rounded-full focus:outline-none overflow-hidden"
               @click="selectFun(soccerList.list[itemNum].tr1id, 'A')"
               :class="selectBtn == soccerList.list[itemNum].tr1id ? 'bg-green-300' : ''">
                 <p>A、</p>
                 <p>{{ soccerList.list[itemNum].t1}}</p> 
               </button>
-              <button class="w-10/12 py-2 px-4 text-center bg-white flex justify-center rounded focus:outline-none overflow-hidden"
+              <button class="w-11/12 py-2 px-4 text-center bg-white flex justify-center rounded-full focus:outline-none overflow-hidden"
               @click="selectFun(soccerList.list[itemNum].tr2id,'B')"
               :class="selectBtn == soccerList.list[itemNum].tr2id ? 'bg-green-300' : ''">
                 <p>B、</p>
                 <p> {{ soccerList.list[itemNum].t2}}</p>
               </button>
-              <button class="w-10/12 py-2 px-4 text-center bg-white flex justify-center rounded focus:outline-none overflow-hidden"
+              <button class="w-11/12 py-2 px-4 text-center bg-white flex justify-center rounded-full focus:outline-none overflow-hidden"
               @click="selectFun(3 , 'C')"
               :class="selectBtn == 3 ? 'bg-green-300' : ''">
               <p>C、</p>
               <p> HÒA</p>
               </button>
-              <button class="w-11/12 py-2 px-4 text-xl text-center bg-gradient-to-b text-white from-yellow-400 bg-yellow-600 rounded-full focus:outline-none"
-              @click="subFun(soccerList.list[itemNum])">Xác nhận</button>
             </div>
-            
+            <button class="absolute top-3 right-3 py-1 px-4 text-center bg-gradient-to-b text-white from-yellow-400 bg-yellow-600 rounded-full focus:outline-none"
+              @click="subFun(soccerList.list[itemNum])">Xác nhận</button>
           </div>
           <!-- 结果组 -->
-          <div v-show="upshot">
+          <div class=""
+          v-show="upshot">
             <div class="text-center text-white font-bold leading-10 py-4">
               KẾT QUẢ TUẦN NÀY
             </div>
             <div class="divide-white divide-y-2 text-white border-t-2 border-b-2 border-solid border-white">
-              <ul class="grid grid-cols-8 leading-10 bg-gray-900 bg-opacity-25 lg:px-2"
+              <ul class="grid grid-cols-6 leading-10 bg-gray-900 bg-opacity-25 lg:px-2"
               v-for="item in betsMatch.list" :key="item.id">
-                <li class="col-span-8 md:col-span-5 py-2">
-                  <p class=" text-center md:text-left h-7 leading-7 text-gray-400">{{item.match.esd}}</p>
-                  <p class=" text-center md:text-left h-7 leading-7">A、{{item.match.t1}}
-                    <b class="px-2 text-yellow-300">VS</b>
-                    B、{{item.match.t2}}
-                  </p>
+                <li class="col-span-6 md:col-span-4 grid grid-cols-3 ">
+                  <p class="col-span-3 lg:col-span-1 text-center md:text-left">{{item.match.esd}}</p>
+                  <p class="col-span-3 lg:col-span-2 text-center md:text-left lg:text-center">{{item.match.t1}} <b>VS</b> {{item.match.t2}}</p>
                 </li>
-                <li class="col-span-8 md:col-span-3 text-right flex justify-center md:justify-end items-center"
+                <li class="col-span-6 md:col-span-2 text-right flex justify-center md:justify-end items-center"
                 :class="item.match.className">
-                  <svg class="w-6" v-if="item.lose" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg class="w-6" v-if="lose" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
-                  <svg class="w-6" v-if="item.win" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg class="w-6" v-if="win" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                   {{item.type+'、'}}{{item.type === "A"? item.match.t1 : item.type === "B"? item.match.t2 : 'HÒA'}}

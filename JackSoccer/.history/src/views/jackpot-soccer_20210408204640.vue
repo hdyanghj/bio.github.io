@@ -25,8 +25,8 @@
            <!-- 按钮组 -->
       
           <div class="h-full" v-show="btn">
-            <div class="flex flex-col justify-end items-center space-y-3 pt-6 lg:items-end ">
-              <div class=" w-56 z-30 cursor-pointer text-sm rounded bg-gray-50 flex bg-gradient-to-b from-red-500 bg-yellow-600 text-white py-2 px-4"
+            <div class="flex flex-col justify-end items-center space-y-3 py-3 lg:items-end ">
+              <div class=" w-56 z-30 cursor-pointer text-sm rounded bg-gray-50 flex bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2 px-4"
               @click="kfFun('https://direct.lc.chat/12580266/')">
                 <svg class="w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
@@ -41,17 +41,17 @@
                 <p>Hỗ Trợ Qua Zalo</p>
               </div>
             </div>
-            <div class="flex justify-center items-center flex-col pt-4 lg:pt-20 space-y-6">
+            <div class="flex justify-center items-center flex-col h-full space-y-6">
               <div class="text-white text-center lg:text-xl">Nhập mã xác minh để bắt đầu dự đoán hoặc xem kết quả</div>
               <input class="p-2 text-center border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-transparent"
               type="text" v-model="verifyCode"/>
               <div class="flex justify-center items-center text-white space-x-4">
-                <button class="bg-gradient-to-b from-green-400 bg-green-800 hover:from-green-500 hover:bg-green-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+                <button class="bg-gradient-to-b from-red-400 bg-red-800 hover:from-red-500 hover:bg-red-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
                 @click="guessFun(1)"
                 maxlength="6">
                   Dự đoán ngay
                 </button>
-                <button class="bg-gradient-to-b from-purple-400 bg-purple-800 hover:from-purple-500 hover:bg-purple-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
+                <button class="bg-gradient-to-b from-yellow-400 bg-yellow-800 hover:from-yellow-500 hover:bg-yellow-900 px-5 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50"
                 @click="guessFun(2)">
                   Xem kết quả
                 </button>
@@ -97,16 +97,13 @@
               KẾT QUẢ TUẦN NÀY
             </div>
             <div class="divide-white divide-y-2 text-white border-t-2 border-b-2 border-solid border-white">
-              <ul class="grid grid-cols-8 leading-10 bg-gray-900 bg-opacity-25 lg:px-2"
+              <ul class="grid grid-cols-6 leading-10 bg-gray-900 bg-opacity-25 lg:px-2"
               v-for="item in betsMatch.list" :key="item.id">
-                <li class="col-span-8 md:col-span-5 py-2">
-                  <p class=" text-center md:text-left h-7 leading-7 text-gray-400">{{item.match.esd}}</p>
-                  <p class=" text-center md:text-left h-7 leading-7">A、{{item.match.t1}}
-                    <b class="px-2 text-yellow-300">VS</b>
-                    B、{{item.match.t2}}
-                  </p>
+                <li class="col-span-6 md:col-span-4">
+                  <p class=" text-center md:text-left">{{item.match.esd}}</p>
+                  <p class=" text-center md:text-left">{{item.match.t1}} <b class="px-2 text-yellow-300">VS</b> {{item.match.t2}}</p>
                 </li>
-                <li class="col-span-8 md:col-span-3 text-right flex justify-center md:justify-end items-center"
+                <li class="col-span-6 md:col-span-2 text-right flex justify-center md:justify-end items-center"
                 :class="item.match.className">
                   <svg class="w-6" v-if="item.lose" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />

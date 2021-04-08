@@ -150,10 +150,10 @@ export default ( function (){
                     type = 'C'
                   }
                   if(bets[i].type === type){
-                    bets[i].lose = true
+                    lose.value = true
                     bets[i].match.className = 'text-green-600'
                   }else{
-                    bets[i].win = true
+                    win.value = true
                     bets[i].match.className = 'text-red-600'
                   }
                 }
@@ -172,8 +172,8 @@ export default ( function (){
     // 获取比赛 ******************************** END
 
     // 跳转客服 ******************************** Start 
-    const kfFun = (e) => {
-      window.open(e,'_blank')
+    const kfFun = () => {
+      window.open('https://direct.lc.chat/12580266/','_blank')
     }
 
     // 开始竞猜 ******************************** Start 
