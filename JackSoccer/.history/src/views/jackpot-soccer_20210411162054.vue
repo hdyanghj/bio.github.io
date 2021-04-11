@@ -76,10 +76,10 @@
           v-for="(item,ind) in soccerList.list" :key="ind">
             <li class="flex-1 flex">
               <div class="pr-2">{{item.esd.substring(0, 10)}}</div>
-              <div>
-                <span>{{item.t1}}</span>
-                <b class="px-2 text-yellow-300">V</b>
-                <span>{{item.t2}}</span>
+              <div class="flex">
+                <p>{{item.t1}}</p>
+                <p><b class="px-2 text-yellow-300">V</b></p>
+                <p>{{item.t2}}</p>
               </div>
             </li>
             <li>

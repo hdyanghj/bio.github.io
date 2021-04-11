@@ -20,6 +20,7 @@
 </template>
 
 <script>
+	import request from '@/common/request.js'
 	export default {
 		data() {
 			return {
@@ -36,6 +37,8 @@
 		},
 		methods: {
 			async loadData(){
+				let homeList = await request.getData('','product/categoryTreeList');
+				console.log(homeList)
 				let list = await this.$api.json('cateList');
 				list.forEach(item=>{
 					if(!item.pid){

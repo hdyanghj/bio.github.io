@@ -59,27 +59,27 @@
           </div>
         </div>
         <!-- 竞猜组 -->
-        <div class="h-full text-white py-12"
+        <div class="h-full text-white py-10"
         v-if="games && soccerList.list.length>0">
-          <ul class="w-full flex justify-center items-center py-2 bg-gradient-to-b from-blue-400 bg-blue-800">
+          <ul class="w-full flex justify-center items-center">
             <li class="flex-1 text-center">
               Make your selections
             </li>
-            <li class="flex items-center text-center">
-              <p class="px-2 leading-4">Home<br/>Win</p>
-              <p class="px-2 b">Draw</p>
-              <p class="px-2 leading-4">Away<br/>Win</p>
+            <li class="flex">
+              <p>Home<br/>Win</p>
+              <p>Draw</p>
+              <p>Away<br/>Win</p>
             </li>
           </ul>
           <ul
-          class="w-full text-xs py-2 flex justify-center items-center border-b-2 border-solid border-white"
+          class="w-full text-xs flex justify-center items-center"
           v-for="(item,ind) in soccerList.list" :key="ind">
-            <li class="flex-1 flex">
-              <div class="pr-2">{{item.esd.substring(0, 10)}}</div>
-              <div>
-                <span>{{item.t1}}</span>
-                <b class="px-2 text-yellow-300">V</b>
-                <span>{{item.t2}}</span>
+            <li class="flex-1">
+              <div>{{item.esd.substring(0, 10)}}</div>
+              <div class="flex">
+                <p>A、{{soccerList.list[itemNum].t1}}</p>
+                <p><b class="px-2 text-yellow-300">V</b></p>
+                <p>B、{{soccerList.list[itemNum].t2}}</p>
               </div>
             </li>
             <li>

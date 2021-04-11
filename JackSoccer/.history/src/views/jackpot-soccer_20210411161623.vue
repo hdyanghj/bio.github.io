@@ -67,7 +67,7 @@
             </li>
             <li class="flex items-center text-center">
               <p class="px-2 leading-4">Home<br/>Win</p>
-              <p class="px-2 b">Draw</p>
+              <p class="px-2">Draw</p>
               <p class="px-2 leading-4">Away<br/>Win</p>
             </li>
           </ul>
@@ -76,10 +76,10 @@
           v-for="(item,ind) in soccerList.list" :key="ind">
             <li class="flex-1 flex">
               <div class="pr-2">{{item.esd.substring(0, 10)}}</div>
-              <div>
-                <span>{{item.t1}}</span>
-                <b class="px-2 text-yellow-300">V</b>
-                <span>{{item.t2}}</span>
+              <div class="flex">
+                <p>{{soccerList.list[itemNum].t1}}</p>
+                <p><b class="px-2 text-yellow-300">V</b></p>
+                <p>{{soccerList.list[itemNum].t2}}</p>
               </div>
             </li>
             <li>
