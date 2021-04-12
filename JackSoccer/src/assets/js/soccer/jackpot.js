@@ -178,36 +178,39 @@ export default ( function (){
 
     // 开始竞猜 ******************************** Start 
     const selectFun = (e,b) => {
-      // console.log(e)
-      selectBtn.value = e
-      selectNum.value = b
-      
+      console.log(e,b)
+      // selectBtn.value = e
+      // selectNum.value = b
+      soccerList.list[e].type = b
     }
     
-    const subFun = (e) => {
+    const subFun = () => {
       //  (1赢,2和)
       // console.log(e)
-      let data = {
-        matchId: e.eid,
-        number: verifyCode.value,
-        type: selectNum.value
-      }
+      let data = []
+      let result = soccerList.list.find(item =>{
+        if(!item.type) {
+          popWarning('Bạn vẫn còn trận cược chưa chọn', 'Error')
+          return
+        }else{
+          data.push({
+            matchId: item.eid,
+            number: verifyCode.value,
+            type: item.type
+          })
+        }
+      });
+      if(soccerList.list.length !== data.length) return
+      console.log(data)
+      console.log(111)
       betsSubmit(data).then((response) => {
         // response.data.data
         // console.log(response.data);
         if(response.data.code === 200){
-          if(response.data.msg === '投注成功'){
-            // console.log(itemNum.value)
-            if (itemNum.value == soccerList.list.length-1) {
+          if(response.data.msg === '操作成功'){
               comeBack()
               popWarning('Tất cả các trận đấu đã được đoán', 'Success')
-            }else{
-              itemNum.value++
-              // console.log('下一题'+itemNum.value)
-              popWarning('Success', 'Success')
-            }
           }
-          
           return
         }
         if(response.data.code === 500){

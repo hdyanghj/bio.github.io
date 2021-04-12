@@ -23,8 +23,9 @@ export function getMatchList(){
 
 export function betsSubmit(data){
     return api({
-        method: "GET",
-        url: `api/sport/bets?matchId=${data.matchId}&number=${data.number}&type=${data.type}`
+        method: "POST",
+        url: 'api/sport/betsV2',
+        data: data
     })
 }
 
