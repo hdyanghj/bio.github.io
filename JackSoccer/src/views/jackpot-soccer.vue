@@ -61,14 +61,14 @@
         <!-- 竞猜组 -->
         <div class="h-full text-white"
         v-if="games && soccerList.list.length>0">
-          <ul class="w-full font-bold flex justify-center items-center py-3 bg-gradient-to-b from-blue-400 bg-blue-800 bg-opacity-70">
+          <ul class="w-full font-bold text-xs flex justify-center items-center py-3 bg-gradient-to-b from-blue-400 bg-blue-800 bg-opacity-70">
             <li class="flex-1 text-center">
-              Make your selections
+               LỰA CHỌN TRẬN ĐẤU CỦA BẠN
             </li>
             <li class="items-center text-center w-44 hidden lg:flex">
-              <p class="px-2 leading-4">Home<br/>Win</p>
-              <p class="px-2 border-l-2 border-r-2 border-solid border-white">Draw</p>
-              <p class="px-2 leading-4">Away<br/>Win</p>
+              <p class="px-1 leading-4">ĐỘI NHÀ<br/>THẮNG</p>
+              <p class="px-1 border-l-2 border-r-2 border-solid border-white">HOÀ</p>
+              <p class="px-1 leading-4">ĐỘI KHÁCH<br/>THẮNG</p>
             </li>
           </ul>
           <ul
@@ -82,21 +82,21 @@
                 {{item.t2}}
               </div>
             </li>
-            <li class="w-14 px-2 lg:w-44 flex flex-col lg:flex-row justify-between bg-green-500 bg-opacity-30 py-2 lg:py-4">
-              <button class="my-1 lg:my-0 lg:mx-2 w-10 h-4 rounded"
+            <li class="w-auto px-2 lg:w-44 flex flex-col lg:flex-row justify-between bg-green-500 bg-opacity-30 py-2 lg:py-4">
+              <button class="my-1 lg:my-0 lg:mx-2 w-20 h-5 rounded"
               :class="item.type === 'A'? 'bg-green-500': 'bg-white text-gray-900'"
               @click="selectFun(ind , 'A')">
-                <span class="block lg:hidden">Home</span>
+                <span class="text-xs block lg:hidden">ĐỘI NHÀ</span>
               </button>
-              <button class="my-1 lg:my-0 lg:mx-2 w-10 h-4 bg-white rounded"
+              <button class="my-1 lg:my-0 lg:mx-2 w-20 h-5 rounded"
               :class="item.type === 'C'? 'bg-green-500': 'bg-white text-gray-900'"
               @click="selectFun(ind , 'C')">
-                <span class="block lg:hidden">Draw</span>
+                <span class="text-xs block lg:hidden">HOÀ</span>
               </button>
-              <button class="my-1 lg:my-0 lg:mx-2 w-10 h-4 bg-white rounded"
+              <button class="my-1 lg:my-0 lg:mx-2 w-20 h-5 rounded"
               :class="item.type === 'B'? 'bg-green-500': 'bg-white text-gray-900'"
               @click="selectFun(ind , 'B')">
-                <span class="block lg:hidden">Away</span>
+                <span class="text-xs block lg:hidden">ĐỘI KHÁCH</span>
               </button>
             </li>
           </ul>
@@ -109,7 +109,7 @@
         </div>
         <!-- 结果组 -->
         <div v-show="upshot">
-          <div class="text-center text-white font-bold py-3 bg-gradient-to-b from-blue-400 bg-blue-800 bg-opacity-70">
+          <div class="text-center text-sm font-bold text-white py-3 bg-gradient-to-b from-blue-400 bg-blue-800 bg-opacity-70">
             KẾT QUẢ TUẦN NÀY
           </div>
           <div class="divide-white text-xs divide-y-2 text-white border-t-2 border-b-2 border-solid border-white">
@@ -131,7 +131,7 @@
                 <svg class="w-6" v-if="item.win" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                {{item.type === "A"? 'Home' : item.type === "B"? 'Away' : 'Draw'}}
+                {{item.type === "A"? 'ĐỘI NHÀ' : item.type === "B"? 'ĐỘI KHÁCH' : 'HOÀ'}}
               </li>
             </ul>
           </div>

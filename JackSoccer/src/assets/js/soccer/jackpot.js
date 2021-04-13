@@ -99,6 +99,11 @@ export default ( function (){
         if(e === 1){
           // 开始竞猜
           if(matchesList){
+            if(bets.length === matchesList.length) {
+              popWarning('Tất cả các trận đấu đã được đoán', 'Success')
+              betsFun(bets)
+              return
+            }
             if(bets){
               for(let i=0;i<matchesList.length;i++){
                 // console.log(bets.length)
@@ -134,40 +139,44 @@ export default ( function (){
           }
         }else{
           // 竞猜结果
-            // console.log(bets)
-          if(bets){
-            for(let i=0;i<bets.length;i++){
-                bets[i].match.esd = bets[i].match.esd.substring(5,16)
-                if(bets[i].match.eps === 'NS'){ //NS 就是没开赛
-                  bets[i].match.className = 'text-gray-400'
-                }else{
-                  let type = ''
-                  if(bets[i].match.tr1>bets[i].match.tr2){
-                    type = 'A'
-                  }else if(bets[i].match.tr1<bets[i].match.tr2){
-                    type = 'B'
-                  }else{
-                    type = 'C'
-                  }
-                  if(bets[i].type === type){
-                    bets[i].lose = true
-                    bets[i].match.className = 'text-green-600'
-                  }else{
-                    bets[i].win = true
-                    bets[i].match.className = 'text-red-600'
-                  }
-                }
-
-            }
-            betsMatch.list = bets
-            btn.value = false
-            upshot.value = true
-          }else{
-            popWarning('Bạn chưa có lịch sử dự đoán nào', 'Warning')
-            // console.log('没有竞猜记录')
-          }  
+          // console.log(bets)
+          betsFun(bets)
         }
       })
+    }
+    const betsFun = (bets) => {
+      if(bets.length !== 0){
+        for(let i=0;i<bets.length;i++){
+            bets[i].match.esd = bets[i].match.esd.substring(5,16)
+            if(bets[i].match.eps === 'NS'){ //NS 就是没开赛
+              bets[i].match.className = 'text-gray-400'
+            }else{
+              let type = ''
+              if(bets[i].match.tr1>bets[i].match.tr2){
+                type = 'A'
+              }else if(bets[i].match.tr1<bets[i].match.tr2){
+                type = 'B'
+              }else{
+                type = 'C'
+              }
+              if(bets[i].type === type){
+                bets[i].lose = true
+                bets[i].match.className = 'text-green-600'
+              }else{
+                bets[i].win = true
+                bets[i].match.className = 'text-red-600'
+              }
+            }
+
+        }
+        betsMatch.list = bets
+        btn.value = false
+        upshot.value = true
+      }else{
+        guessFun(1)
+        popWarning('Bạn chưa có lịch sử dự đoán nào', 'Warning')
+        // console.log('没有竞猜记录')
+      } 
     }
     // 获取比赛 ******************************** END
 
@@ -208,7 +217,8 @@ export default ( function (){
         // console.log(response.data);
         if(response.data.code === 200){
           if(response.data.msg === '操作成功'){
-              comeBack()
+              // comeBack()
+              guessFun(2)
               popWarning('Tất cả các trận đấu đã được đoán', 'Success')
           }
           return
