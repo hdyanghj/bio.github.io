@@ -187,7 +187,7 @@ export default ( function (){
 
     // 开始竞猜 ******************************** Start 
     const selectFun = (e,b) => {
-      console.log(e,b)
+      // console.log(e,b)
       // selectBtn.value = e
       // selectNum.value = b
       soccerList.list[e].type = b
@@ -210,8 +210,8 @@ export default ( function (){
         }
       });
       if(soccerList.list.length !== data.length) return
-      console.log(data)
-      console.log(111)
+      // console.log(data)
+      // console.log(111)
       betsSubmit(data).then((response) => {
         // response.data.data
         // console.log(response.data);
