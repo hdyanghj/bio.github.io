@@ -5,21 +5,22 @@
       <div class="w-full lg:w-5/12 border-red-300">
         <div class="w-full p-4 flex flex-col justify-center items-center relative">
           <img class="w-full" src="../assets/img/jackpot-soccer/jiang-qy.png"/>
-          <p class="p-2 text-center text-white absolute bottom-7 left-28 lg:bottom-12 lg:left-40 xl:left-48 leading-4 lg:leading-5 text-xs lg:text-base">
-            <span class="text-sm lg:text-lg font-bold">HƠN {{bonusList.list.value1}}</span><br/>
-            ĐÃ SẴN SÀNG PHÁT THƯỞNG<br/>TRONG MÙA NÀY
+          <p class="text-pr text-center text-white flex flex-col justify-center items-center absolute leading-4 lg:leading-5 text-xs lg:text-base">
+            <p class="text-sm lg:text-lg font-bold">HƠN {{bonusList.list.value1}}</p>
+            <p>ĐÃ SẴN SÀNG PHÁT THƯỞNG</p>
+            <p>TRONG MÙA NÀY</p>
           </p>
         </div>
         <div>
           <div class="flex flex-col justify-center items-center space-y-3 lg:pr-4 lg:items-end lg:flex-row ">
-            <div class="w-8/12 lg:w-5/12 h-8 px-4 cursor-pointer lg:mr-5 text-xs rounded bg-gray-50 flex bg-gradient-to-t from-red-800 bg-red-400 text-white py-2"
+            <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer lg:mr-5 text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-t from-red-800 bg-red-400 text-white py-2"
             @click="kfFun('https://direct.lc.chat/12580266/')">
               <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
               <p>Liên Hệ CSKH Trực Tuyến</p>
             </div>
-            <div class="w-8/12 lg:w-5/12 h-8 px-4 cursor-pointer text-xs rounded bg-gray-50 flex bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
+            <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
             @click="kfFun('https://zalo.me/v7tramanh')">
               <img class="w-4 h-4 mr-2" src="../assets/img/jackpot-soccer/Zalo.png" alt="">
               <p>Hỗ Trợ Qua Zalo</p>
@@ -41,8 +42,8 @@
           </div>
           <div class="h-full soccer py-7 lg:py-24" v-show="btn">
             <div class="w-9/12 lg:w-full flex justify-center items-center flex-col py-4 lg:pt-20 space-y-6">
-              <div class="text-white text-center lg:text-xl">Nhập mã xác minh để bắt đầu dự đoán hoặc xem kết quả</div>
-              <div class="pl-4">
+              <div class="text-white text-center lg:text-xl px-4">Nhập mã xác minh để bắt đầu dự đoán hoặc xem kết quả</div>
+              <div class="pl-0">
                 <input class="p-2 text-center border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-transparent"
               type="text" v-model="verifyCode"/>
               </div>
@@ -172,17 +173,27 @@ export default defineComponent({
   background: url(../assets/img/jackpot-soccer/pc-bg.png) top center no-repeat;
   background-size: 100% 100%;
 }
-@media (max-width:768px) {
-  .soccer_bg {
-  background:#4c681d url(../assets/img/jackpot-soccer/pc-bg.png) -150px top no-repeat;
-  background-size: auto 100%;
-}
-}
 .soccer{
   background: url(../assets/img/jackpot-soccer/soccer-bg.png) top center no-repeat;
   background-size: 100% auto;
 }
+@media (max-width:768px) {
+  .soccer_bg {
+    background:#4c681d url(../assets/img/jackpot-soccer/pc-bg.png) -150px top no-repeat;
+    background-size: auto 100%;
+  }
+  .soccer{
+    background: url(../assets/img/jackpot-soccer/soccer-bg.png) top center no-repeat;
+    background-size: 100% 100%;
+  }
+}
 .soccercolor{
   background: rgba(39,181,250, 0.8);
+}
+.text-pr{
+  right: 13%;
+  left: 32%;
+  bottom: 6%;
+  height: 15%;
 }
 </style>
