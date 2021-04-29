@@ -8,18 +8,13 @@
 // export default router
 
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/jackpot-soccer.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'jackpotsoccer',
     component: Home
-  },
-  {
-    path: '/jackpotsoccer',
-    name: 'JACKPOT BÓNG ĐÁ',
-    component: () => import('../views/jackpot-soccer.vue')
   }
 ]
 
