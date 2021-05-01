@@ -239,6 +239,25 @@ export default ( function (){
     }
     // 开始竞猜 ******************************** END
     
+    // 定时器 ******************************** END
+  
+
+    const dataTime = ref('129,631.65')
+    const minData = ref(12963165)
+    const maxData = ref(15144381)
+    
+    const startbFun = () => {
+      setInterval( () => {
+        if(maxData.value === minData.value){
+          minData.value = 12963165
+        }
+        minData.value ++
+        let dataStr = '' + minData.value
+        dataTime.value = dataStr.substring(0,3) + ',' +  dataStr.substring(3,6) + '.' + dataStr.substring(6,dataStr.length)
+      },1000)
+    }
+
+    // 定时器 ******************************** Start
 
     return {
       verifyCode,
@@ -260,6 +279,8 @@ export default ( function (){
       bonusFun,
       lose,
       win,
-      kfFun
+      kfFun,
+      dataTime,
+      startbFun
     };
 })()

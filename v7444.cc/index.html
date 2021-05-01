@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>V7 Vòng quay may mắn,quay là trúng thưởng là vui</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<script>
+			document.documentElement.style.fontSize=document.documentElement.clientWidth/3.75+'px'
+		</script>
+	</head>
+	<body>
+		<div class="box">
+			<div class="turntable-body">
+				<div class="pointer"></div>
+				<!--转盘文字及图片-->
+				<div class="turntable_box">				
+					<img class="turntable_bg" src="img/turntable.png">
+					<div class="item"></div>
+					<div class="item" style="transform: rotate(40.5deg);"></div>
+					<div class="item" style="transform: rotate(80.5deg);"></div>
+					<div class="item" style="transform: rotate(120deg);"></div>
+					<div class="item" style="transform: rotate(159.5deg);"></div>
+					<div class="item" style="transform: rotate(-159.5deg);"></div>
+					<div class="item" style="transform: rotate(-120deg);"></div>
+					<div class="item" style="transform: rotate(-80.5deg);"></div>
+					<div class="item" style="transform: rotate(-40.5deg);"></div>
+				</div>
+			</div>
+			<div class="record-body">
+				<h1 class="record-title">Đoạt Giải</h1>
+				<div class="scrollDiv" id="s2">
+					<ul id="list-01" class="record-list"></ul>
+					<ul id="list-02" class="record-list"></ul>
+				</div>
+			</div>
+			<div class="shuoming">
+				<a class="signup" href="https://www.v7ap.com/?uagt=v7tie&path=signup">Đăng ký tài khoản</a>
+				<a class="service" href="https://direct.lc.chat/12580266/">Chat ngay bây giờ</a>
+				<img src="img/jp-img.png" />
+			</div>
+
+			<div class="pop-bg"></div>
+			<div class="pop-body">
+				<a class="guanbi"></a>
+				<div class="tip-main"></div>
+				<div class="pop-main">
+					<p>Nhập mã quay thưởng</p>
+					<p><input type="text" id="lottery" name="lotterycode"/></p>
+					<div class="sub-btn">Xác nhận</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="js/jquery.rotate.min.js" ></script>
+<script type="text/javascript" src="js/rem.js" ></script>
+<script type="text/javascript">
+	var record = []
+	var recordHtml = ''
+	$(function (){
+		$.getJSON("js/recording.json", function (data){
+	    	$.each(data.recordList, function (index, item){
+				// console.log(index)
+				// console.log(item)
+				
+				var timeDiff = index * 1200 * 60
+				var newDate = new Date(new Date().getTime() - timeDiff)
+					
+				var mon = newDate.getMonth() + 1; //获取当前月
+				var date = newDate.getDate(); //获取当前日
+				var h = newDate.getHours();//获取当前小时数(0-23)
+				var m = newDate.getMinutes();//获取当前分钟数(0-59)
+				// console.log(mon + '-' + date + ' ' + h + ':' + m)
+				recordHtml += '<li>'
+								+ '<div class="list-flex">'
+									+ '<p class="list-jp">' + item.userName + '</p>'
+									+ '<p class="list-time">' + Appendzero(mon) + '-' + Appendzero(date) + '</p>'
+								+'</div>'
+								+'<div class="list-flex">' 
+									+ '<p class="list-jp">' + item.prize + '</p>'
+									+ '<p class="list-time">' + Appendzero(h) + ':' + Appendzero(m) + '</p>'
+								+ '</div>'
+							+'</li>'
+	    	})
+			var box = document.getElementById("s2");
+			var l1 = document.getElementById("list-01");
+			var l2 = document.getElementById("list-02");
+			autoScroll();
+			function autoScroll() {
+				l1.innerHTML = recordHtml;
+				// console.log(l1.offsetHeight)
+				// console.log(box.offsetHeight)
+				if (l1.offsetHeight > box.offsetHeight) {
+					// console.time()
+					l2.innerHTML = l1.innerHTML;//克隆list1的数据，使得list2和list1的数据一样
+					scrollMove = setInterval(scrollup, 30);//数值越大，滚动速度越慢
+					// console.timeEnd()
+					
+				}
+			}
+			function scrollup() {
+				//滚动条距离顶部的值恰好等于list1的高度时，达到滚动临界点，此时将让scrollTop=0,让list1回到初始位置，实现无缝滚动
+				if (box.scrollTop >= l1.offsetHeight) {
+					box.scrollTop = 0;
+				} else {
+					box.scrollTop++;
+				}
+			}
+		})
+	})
+	function Appendzero (obj) {
+    	if (obj < 10) return "0" + obj; else return obj;
+    }
+
+</script>
+<script>
+	//只需要更换turnplate的id就可以更换相应的奖品
+	var turnplate={
+      	restaraunts:["1", "2", "3", "4", "5", "6", "7", "8", "9"],       //大转盘奖品名称
+      	rotateFlag:false,      //false:停止;ture:旋转
+      	id:4    //抽中的id 1:iphone x  2:100话费红包   3:周大福吊坠 ......
+  	};
+  	$(document).ready(function(){
+		var SplitArray = function(N,Q)
+		{
+		    var R = [],F;
+		    for (F = 0;F < Q.length;) R.push(Q.slice(F,F += N))
+		    return R
+		}
+		 
+	    //旋转转盘 item:奖品位置; txt：提示语;
+	    var rotateFn = function (item, txt){
+	      	var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
+			// console.log(angles)
+	      	if(angles<270){
+	       	 angles = 270 - angles; 
+			// console.log('<+'+angles)
+	      	}else{
+	      	  angles = 360 - angles + 270;
+			// console.log(angles)
+	      	}
+	      	$('.turntable_box').stopRotate();
+	     	$('.turntable_box').rotate({
+	       		angle:0,
+	        	animateTo:angles+1800+28.5, // 选择角度
+	        	duration:8000,
+	       		callback:function (){
+	         		// alert(txt);
+					let popText = '<p>Chúc mừng bạn nhận được</p><p class="color-red">'+ txt +'</p>'
+					$(".tip-main").html(popText);
+					$('.pop-bg').addClass('tips-show')
+					$('.pop-body').addClass('tips-show')
+					$('.tip-main').addClass('poptip')
+	          		turnplate.rotateFlag = !turnplate.rotateFlag;
+	        	}
+	      	});
+	    };
+	
+	    $('.pointer').click(function (){
+			$('.pop-bg').addClass('tips-show')
+			$('.pop-body').addClass('tips-show')
+			$('.pop-main').addClass('poptip')
+	    });
+		$('.sub-btn').click(function (){
+			// console.log(111)
+			var lotterycode = $('input[name="lotterycode"]').val();
+			// console.log(lotterycode)
+			if(!lotterycode){
+				// console.log('请输入抽奖码')
+				tishiHide()
+				tishiShow()
+			}else if(lotterycode.length > 6 || lotterycode.length < 6 ){
+				// console.log('请输入正确的抽奖码')
+				tishiHide()
+				tishiShow()
+			}else{
+				// console.log('开始抽奖')
+				tishiHide()
+				$.ajax({
+					url:'http://112.213.118.251:8080/api/luck/startLuck',
+					data: {
+						number:lotterycode
+					},
+					async: true,
+					success:function(result){
+						// console.log(result)
+						$('#lottery').val("")
+						lotterycode = ""
+						if(result.code === 200){
+							if(turnplate.rotateFlag)return;
+							turnplate.rotateFlag = !turnplate.rotateFlag;
+							var item = result.data.id;
+							//指针落在对应奖品区域的中心角度 //turnplate.restaraunts[item-1]
+							rotateFn(item-2, result.data.name);
+						}else{
+							tishiShow()
+						}
+						
+					},
+					error(xhr,status,error){
+						let popText = '<p>Liên kết thất bại vui lòng thử lại sau!</p>'
+						
+						$(".tip-main").html(popText);
+						$('.pop-bg').addClass('tips-show')
+						$('.pop-body').addClass('tips-show')
+						$('.tip-main').addClass('poptip')
+
+					}
+				})
+			}
+		});
+		$('.pop-bg').click(function (){
+			tishiHide()
+		});
+		$('.guanbi').click(function (){
+			tishiHide()
+		});
+		// $('.pop-body').click(function (){
+		// 	$('.pop-bg').removeClass('tips-show')
+		// 	$('.pop-body').removeClass('tips-show')
+		// });
+		function tishiHide(){
+			$('.pop-bg').removeClass('tips-show')
+			$('.pop-body').removeClass('tips-show')
+			$('.pop-main').removeClass('poptip')
+			$('.tip-main').removeClass('poptip')
+			$('#lottery').val("")
+		}
+		 function tishiShow(){
+				let popText = '<p>Mã bạn vừa nhập không hợp lệ</p>'
+				
+				$(".tip-main").html(popText);
+				$('.pop-bg').addClass('tips-show')
+				$('.pop-body').addClass('tips-show')
+				$('.tip-main').addClass('poptip')
+		 }
+		
+		// $('.pointer').click(function (){
+		// 	let popText = ''
+		// 	popText += '<p>Không may mắn.</p>'
+		// 			+'<p><input type="text" name="lotterycode"/></p>'
+		// 			+'<a class="sub-btn">提交</a>'
+			
+		// 	$(".pop-body").html(popText);
+		// 	$('.pop-bg').addClass('tips-show')
+		// 	$('.pop-body').addClass('tips-show')
+		// 	return
+		// 	console.log(111)
+			
+		//   	//console.log(item);
+		// });
+		
+	    
+	    
+	  
+	});  
+</script>

@@ -2,34 +2,32 @@
   <section class="soccer_bg pt-4 pb-10 min-h-full lg:flex lg:justify-center lg:items-center relative">
     <div class="w-11/12 lg:max-w-7xl mx-auto flex flex-col lg:flex-row lg:space-x-4">
       <div class="w-full  justify-center flex lg:hidden"><img class="w-5/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
-      <div class="w-full lg:w-5/12 border-red-300">
+      <div class="w-full lg:w-5/12 border-red-300 flex flex-col justify-center items-center">
         <div class="w-full p-4 flex flex-col justify-center items-center relative">
           <img class="w-full" src="../assets/img/jackpot-soccer/jiang-qy.png"/>
-          <p class="text-pr text-center text-white flex flex-col justify-center items-center absolute leading-4 lg:leading-5 text-xs lg:text-base">
+          <div class="text-pr text-center text-white flex flex-col justify-center items-center absolute leading-4 lg:leading-5 text-xs lg:text-base">
             <p class="text-sm lg:text-lg font-bold">HƠN {{bonusList.list.value1}}</p>
-            <p>ĐÃ SẴN SÀNG PHÁT THƯỞNG</p>
-            <p>TRONG MÙA NÀY</p>
-          </p>
+            <p>ĐANG CHỜ BẠN TRONG</p>
+            <p>MÙA GIẢI NÀY</p>
+          </div>
         </div>
-        <div>
-          <div class="flex flex-col justify-center items-center space-y-3 lg:pr-4 lg:items-end lg:flex-row ">
-            <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer lg:mr-5 text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-t from-red-800 bg-red-400 text-white py-2"
-            @click="kfFun('https://direct.lc.chat/12580266/')">
-              <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-              </svg>
-              <p>Liên Hệ CSKH Trực Tuyến</p>
-            </div>
-            <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
-            @click="kfFun('https://zalo.me/v7tramanh')">
-              <img class="w-4 h-4 mr-2" src="../assets/img/jackpot-soccer/Zalo.png" alt="">
-              <p>Hỗ Trợ Qua Zalo</p>
-            </div>
+        <div class="w-full flex flex-col justify-center items-center space-y-3 lg:pr-4 lg:items-end lg:flex-row ">
+          <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer lg:mr-5 text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-t from-red-800 bg-red-400 text-white py-2"
+          @click="kfFun('https://direct.lc.chat/12580266/')">
+            <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <p>Liên Hệ CSKH Trực Tuyến</p>
+          </div>
+          <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
+          @click="kfFun('https://zalo.me/v7tramanh')">
+            <img class="w-4 h-4 mr-2" src="../assets/img/jackpot-soccer/Zalo.png" alt="">
+            <p>Hỗ Trợ Qua Zalo</p>
           </div>
         </div>
       </div>
       <div class="w-full lg:w-6/12 relative z-10 flex flex-col justify-center items-center">
-        <div class="w-full  justify-center hidden lg:flex"><img class="w-5/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
+        <div class="w-full justify-center hidden lg:flex"><img class="w-5/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
           <!-- 按钮组 -->
         <div class="w-full border-4 border-solid border-white rounded-lg relative my-4 overflow-hidden">
           <div class="absolute py-3 px-3 z-30">
@@ -140,6 +138,9 @@
             </div>
           </div>
         </div>
+        <div class="w-full mt-4 py-4 font-bold text-3xl lg:text-5xl bg-blue-400 bg-opacity-60 text-gray-700 flex justify-center items-center rounded-lg">
+         {{dataTime}} USD
+        </div>
       </div>
     </div>
     <PromptBox :warningMsg="warningMsg" 
@@ -162,6 +163,7 @@ export default defineComponent({
     
     onMounted(() => {
       jackpot.bonusFun()
+      jackpot.startbFun()
     })
     return {...jackpot};
   }
@@ -191,8 +193,8 @@ export default defineComponent({
   background: rgba(39,181,250, 0.8);
 }
 .text-pr{
-  right: 13%;
-  left: 32%;
+  right: 12%;
+  left: 36%;
   bottom: 6%;
   height: 15%;
 }
