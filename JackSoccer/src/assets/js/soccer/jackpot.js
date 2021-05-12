@@ -259,6 +259,11 @@ export default ( function (){
 
     // 定时器 ******************************** Start
 
+    const signupFun = () => {
+      let url = 'https://www.v7ap.com/?uagt=jackpot&path=signup'
+      window.open(url,'_blank') // 新窗口打开外链接
+    }
+
     return {
       verifyCode,
       btn,
@@ -281,6 +286,7 @@ export default ( function (){
       win,
       kfFun,
       dataTime,
-      startbFun
+      startbFun,
+      signupFun
     };
 })()

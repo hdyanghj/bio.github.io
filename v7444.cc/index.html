@@ -35,9 +35,13 @@
 				</div>
 			</div>
 			<div class="shuoming">
-				<a class="signup" href="https://www.v7ap.com/?uagt=v7tie&path=signup">Đăng ký tài khoản</a>
-				<a class="service" href="https://direct.lc.chat/12580266/">Chat ngay bây giờ</a>
-				<img src="img/jp-img.png" />
+				<a class="signup" href="https://www.v7ap.com/?uagt=v7tie&path=signup" target="_blank">
+					<img src="img/zhuce.png"/>
+				</a>
+				<a class="service" href="http://v7cv.com" target="_blank">
+					129,631.65
+				</a>
+				<img class="sm-text" src="img/jp-img.png" />
 			</div>
 
 			<div class="pop-bg"></div>
@@ -59,7 +63,19 @@
 <script type="text/javascript">
 	var record = []
 	var recordHtml = ''
+	var dataTime = '129,631.65'
+    var minData = 12963165
+    var maxData = 15144381
 	$(function (){
+		setInterval( () => {
+			if(maxData === minData){
+				minData = 12963165
+			}
+			minData ++
+			var dataStr = '' + minData
+			dataTime = dataStr.substring(0,3) + ',' +  dataStr.substring(3,6) + '.' + dataStr.substring(6,dataStr.length)
+			$(".service").html(dataTime);
+		},1000)
 		$.getJSON("js/recording.json", function (data){
 	    	$.each(data.recordList, function (index, item){
 				// console.log(index)

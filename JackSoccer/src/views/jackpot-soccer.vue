@@ -28,6 +28,9 @@
       </div>
       <div class="w-full lg:w-6/12 relative z-10 flex flex-col justify-center items-center">
         <div class="w-full justify-center hidden lg:flex"><img class="w-5/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
+        <div class="usd-bg w-80 lg:w-96 h-24 lg:h-28 mt-4 pt-6 lg:pt-7 pl-14 lg:pl-16 pr-24 lg:pr-28 font-bold text-3xl lg:text-4xl text-yellow-200 flex justify-center items-center rounded-lg">
+         {{dataTime}}
+        </div>
           <!-- 按钮组 -->
         <div class="w-full border-4 border-solid border-white rounded-lg relative my-4 overflow-hidden">
           <div class="absolute py-3 px-3 z-30">
@@ -57,7 +60,8 @@
                 </button>
               </div>
             </div>
-            <div class="w-4/12 absolute z-0 bottom-0 right-0 block lg:hidden"><img src="../assets/img/jackpot-soccer/qiuy.png"/></div>
+            <div class="w-4/12 absolute z-0 bottom-4 right-0 block lg:hidden" @click="signupFun"><img src="../assets/img/jackpot-soccer/jackpot.gif"/></div>
+            <!-- <div class="w-4/12 absolute z-0 bottom-0 right-0 block lg:hidden"><img src="../assets/img/jackpot-soccer/qiuy.png"/></div> -->
           </div>
           <!-- 竞猜组 -->
           <div class="h-full soccercolor text-white"
@@ -138,15 +142,13 @@
             </div>
           </div>
         </div>
-        <div class="w-full mt-4 py-4 font-bold text-3xl lg:text-5xl bg-blue-400 bg-opacity-60 text-gray-700 flex justify-center items-center rounded-lg">
-         {{dataTime}} USD
-        </div>
       </div>
     </div>
+    <div class="w-auto cursor-pointer absolute z-20 bottom-10 right-0 hidden lg:block" @click="signupFun"><img src="../assets/img/jackpot-soccer/jackpot.gif"/></div>
     <PromptBox :warningMsg="warningMsg" 
     :class="warningBox ? 'translate-y-0' : '-translate-y-full'"
     @hideWarning="hideWarning"/>
-    <div class="w-2/12 absolute z-0 bottom-0 right-0 hidden lg:block"><img src="../assets/img/jackpot-soccer/qiuy.png"/></div>
+    <!-- <div class="w-2/12 absolute z-0 bottom-0 right-0 hidden lg:block"><img src="../assets/img/jackpot-soccer/qiuy.png"/></div> -->
   </section>
 </template>
 
@@ -177,6 +179,10 @@ export default defineComponent({
 }
 .soccer{
   background: url(../assets/img/jackpot-soccer/soccer-bg.png) top center no-repeat;
+  background-size: 100% auto;
+}
+.usd-bg{
+  background: url(../assets/img/jackpot-soccer/jackpot51.png) top center no-repeat;
   background-size: 100% auto;
 }
 @media (max-width:768px) {
