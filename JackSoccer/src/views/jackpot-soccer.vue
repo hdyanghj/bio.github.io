@@ -2,8 +2,9 @@
   <section class="soccer_bg pt-4 pb-10 min-h-full lg:flex lg:justify-center lg:items-center relative">
     <div class="w-11/12 lg:max-w-7xl mx-auto flex flex-col lg:flex-row lg:space-x-4">
       <div class="w-full  justify-center flex lg:hidden"><img class="w-5/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
+      <div class="w-full text-yellow-300 text-center block lg:hidden" style="text-shadow:#000 1px 1px 2px">MỘT SẢN PHẨM ĐỘC QUYỀN CỦA V7</div>
       <div class="w-full lg:w-5/12 border-red-300 flex flex-col justify-center items-center">
-        <div class="w-full p-4 flex flex-col justify-center items-center relative">
+        <div class="w-full lg:w-11/12 p-4 flex flex-col justify-center items-center relative">
           <img class="w-full" src="../assets/img/jackpot-soccer/jiang-qy.png"/>
           <div class="text-pr text-center text-white flex flex-col justify-center items-center absolute leading-4 lg:leading-5 text-xs lg:text-base">
             <p class="text-sm lg:text-lg font-bold">HƠN {{bonusList.list.value1}}</p>
@@ -12,11 +13,9 @@
           </div>
         </div>
         <div class="w-full flex flex-col justify-center items-center space-y-3 lg:pr-4 lg:items-end lg:flex-row ">
-          <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer lg:mr-5 text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-t from-red-800 bg-red-400 text-white py-2"
+          <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer lg:mr-5 text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
           @click="kfFun('https://direct.lc.chat/12580266/')">
-            <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-            </svg>
+            <img class="w-4 h-4 mr-2" src="../assets/img/jackpot-soccer/v7.png" alt="">
             <p>Liên Hệ CSKH Trực Tuyến</p>
           </div>
           <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
@@ -25,9 +24,22 @@
             <p>Hỗ Trợ Qua Zalo</p>
           </div>
         </div>
+        <div class="w-full flex flex-col justify-center items-center space-y-3 mt-3 lg:mt-0 lg:pr-4 lg:items-end lg:flex-row ">
+          <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer lg:mr-5 text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
+          @click="kfFun('https://www.facebook.com/jackpotv7/?ref=pages_you_manage')">
+            <img class="w-4 h-4 mr-2" src="../assets/img/jackpot-soccer/Facebook.png" alt="">
+            <p>Facebook</p>
+          </div>
+          <div class="w-8/12 lg:w-5/12 h-8 cursor-pointer text-xs rounded bg-gray-50 flex justify-center bg-gradient-to-b from-blue-400 bg-blue-800 text-white py-2"
+          @click="kfFun('https://t.me/V7CSKH')">
+            <img class="w-4 h-4 mr-2" src="../assets/img/jackpot-soccer/Telegram.png" alt="">
+            <p>Telegram</p>
+          </div>
+        </div>
       </div>
       <div class="w-full lg:w-6/12 relative z-10 flex flex-col justify-center items-center">
         <div class="w-full justify-center hidden lg:flex"><img class="w-5/12" src="../assets/img/jackpot-soccer/v7_logo.png"/></div>
+        <div class="w-full text-yellow-300 text-center hidden lg:block" style="text-shadow:#000 1px 1px 2px">MỘT SẢN PHẨM ĐỘC QUYỀN CỦA V7</div>
         <div class="usd-bg w-80 lg:w-96 h-24 lg:h-28 mt-4 pt-6 lg:pt-7 pl-14 lg:pl-16 pr-24 lg:pr-28 font-bold text-3xl lg:text-4xl text-yellow-200 flex justify-center items-center rounded-lg">
          {{dataTime}}
         </div>
